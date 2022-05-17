@@ -1,0 +1,184 @@
+packages: ./.
+write-ghc-environment-files: never
+
+package cryptonite
+  -- Using RDRAND instead of /dev/urandom as an entropy source for key
+  -- generation is dubious. Set the flag so we use /dev/urandom by default.
+  flags: -support_rdrand
+
+-- ---------------------------------------------------------
+-- Disable all tests by default
+
+tests: False
+
+test-show-details: direct
+
+allow-newer:
+  size-based:template-haskell,
+  libsystemd-journal:base,
+  ekg:aeson
+
+source-repository-package
+  type: git
+  location: https://github.com/vshabanov/ekg-json
+  tag: 00ebe7211c981686e65730b7144fbf5350462608
+  --sha256: sha256-VT8Ur585TCn03P2TVi6t92v2Z6tl8vKijICjse6ocv8=
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/cardano-node
+  tag: 1.34.1
+  subdir:
+    cardano-api
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/hedgehog-extras
+  tag: edf6945007177a638fbeb8802397f3a6f4e47c14
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/cardano-base
+  tag: 8fe904d629194b1fbaaf2d0a4e0ccd17052e9103
+  subdir:
+    base-deriving-via
+    binary
+    binary/test
+    cardano-crypto-class
+    cardano-crypto-praos
+    cardano-crypto-tests
+    measures
+    orphans-deriving-via
+    slotting
+    strict-containers
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/cardano-crypto
+  tag: 07397f0e50da97eaa0575d93bee7ac4b2b2576ec
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/cardano-ledger
+  tag: e8d4c2baf8c7db07209efc6cc73a5da87efbf6be
+  subdir:
+    eras/alonzo/impl
+    eras/alonzo/test-suite
+    eras/byron/chain/executable-spec
+    eras/byron/crypto
+    eras/byron/crypto/test
+    eras/byron/ledger/executable-spec
+    eras/byron/ledger/impl
+    eras/byron/ledger/impl/test
+    eras/babbage/impl
+    eras/babbage/test-suite
+    libs/cardano-data
+    libs/cardano-ledger-core
+    libs/cardano-ledger-pretty
+    libs/non-integral
+    libs/small-steps
+    libs/small-steps-test
+    libs/set-algebra
+    eras/shelley/impl
+    eras/shelley/test-suite
+    eras/shelley-ma/impl
+    eras/shelley-ma/test-suite
+    libs/cardano-protocol-tpraos
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/cardano-prelude
+  tag: fd773f7a58412131512b9f694ab95653ac430852
+  subdir:
+    cardano-prelude
+    cardano-prelude-test
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/goblins
+  tag: cde90a2b27f79187ca8310b6549331e59595e7ba
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/iohk-monitoring-framework
+  tag: 23bb1280b0a82fb18224aa1e5ccbc4207020ccbf
+  subdir:
+    contra-tracer
+    iohk-monitoring
+    plugins/backend-aggregation
+    plugins/backend-ekg
+    plugins/backend-monitoring
+    plugins/backend-trace-forwarder
+    plugins/scribe-systemd
+    tracer-transformers
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/Win32-network
+  tag: 3825d3abf75f83f406c1f7161883c438dac7277d
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/ouroboros-network
+  tag: 163408cb58e13ac1ad63b8c947a71c491d00c4f8
+  subdir:
+    io-sim
+    io-classes
+    monoidal-synchronisation
+    network-mux
+    strict-stm
+    ouroboros-consensus
+    ouroboros-consensus-protocol
+    ouroboros-consensus-byron
+    ouroboros-consensus-cardano
+    ouroboros-consensus-shelley
+    ouroboros-network
+    ouroboros-network-framework
+    ouroboros-network-testing
+    typed-protocols
+    typed-protocols-cborg
+    typed-protocols-examples
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/plutus
+  tag: 67ed06de8234555ed181d47ec6b49ab1a004b6f9
+  subdir:
+    plutus-core
+    plutus-ledger-api
+    plutus-tx
+    plutus-tx-plugin
+    prettyprinter-configurable
+    word-array
+
+source-repository-package
+  type: git
+  location: https://github.com/input-output-hk/flat
+  tag: ee59880f47ab835dbd73bea0847dab7869fc20d8
+  --sha256: 1lrzknw765pz2j97nvv9ip3l1mcpf2zr4n56hwlz0rk7wq7ls4cm
+
+constraints:
+    hedgehog >= 1.0
+  , bimap >= 0.4.0
+  , libsystemd-journal >= 1.4.4
+  , systemd >= 2.3.0
+    -- systemd-2.3.0 requires at least network 3.1.1.0 but it doesn't declare
+    -- that dependency
+  , network >= 3.1.1.0
+
+package comonad
+  flags: -test-doctests
+
+package cardano-ledger-alonzo-test
+  tests: False
+package cardano-ledger-alonzo
+  optimization: False
+  ghc-options: -Werror
+package ouroboros-consensus-shelley
+  optimization: False
+package ouroboros-consensus-cardano
+  optimization: False
+package cardano-api
+package cardano-crypto-praos
+  flags: -external-libsodium-vrf
+  optimization: False
