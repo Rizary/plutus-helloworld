@@ -16,7 +16,7 @@ module Cardano.PlutusExample.HelloWorldByteStringParametric
   , helloWorldSBS
   ) where
 
-import           Prelude hiding (($))
+import           Prelude hiding (($), (.))
 
 import           Cardano.Api.Shelley (PlutusScript (..), PlutusScriptV1)
 

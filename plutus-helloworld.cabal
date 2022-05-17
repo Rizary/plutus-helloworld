@@ -51,6 +51,7 @@ library
 
   build-depends:        bytestring
                       , cardano-api
+                      , plutus-ledger
                       , plutus-ledger-api
                       , plutus-tx
                       , plutus-tx-plugin
@@ -67,6 +68,7 @@ executable plutus-helloworld
   build-depends:        cardano-api
                       , cardano-ledger-alonzo
                       , plutus-helloworld
+                      , plutus-ledger
                       , plutus-ledger-api
                       , bytestring
 
@@ -78,6 +80,7 @@ executable plutus-sum
 
   build-depends:        cardano-api
                       , plutus-helloworld
+                      , plutus-ledger
                       , plutus-ledger-api
                       , bytestring
 
@@ -91,6 +94,7 @@ executable plutus-helloworld-bytestring
                       , cardano-api
                       , cardano-ledger-alonzo
                       , plutus-helloworld
+                      , plutus-ledger
                       , plutus-ledger-api
                       , plutus-tx
                       , bytestring
@@ -103,5 +107,6 @@ executable plutus-helloworld-literal-bytestring
 
   build-depends:      , cardano-api
                       , plutus-helloworld
+                      , plutus-ledger
                       , plutus-ledger-api
                       , bytestring

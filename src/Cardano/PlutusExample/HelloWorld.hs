@@ -12,7 +12,7 @@ module Cardano.PlutusExample.HelloWorld
   , helloWorldSBS
   ) where
 
-import           Prelude hiding (($))
+import           Prelude hiding (($),(.))
 
 import           Cardano.Api.Shelley (PlutusScript (..), PlutusScriptV1)
 
@@ -73,4 +73,3 @@ helloWorldSBS =  SBS.toShort . LBS.toStrict $ serialise helloWorldScript
 
 helloWorldSerialised :: PlutusScript PlutusScriptV1
 helloWorldSerialised = PlutusScriptSerialised helloWorldSBS
-
